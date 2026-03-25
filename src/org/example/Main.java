@@ -11,5 +11,12 @@ public class Main {
 
         task1.markAsCompleted();
         manager.listTask();
+
+        Task foundTask = manager.findTaskById(1);
+
+        if(foundTask != null){
+            System.out.println("Found: " + foundTask.getTitle());
+        }
     }
+
 }

@@ -18,4 +18,12 @@ public class TaskManager {
             );
         }
     }
+    public Task findTaskById(int id){
+        for(Task task : tasks){
+            if(task.getId() == id){
+                return task;
+            }
+        }
+        return null;
+    }
 }
