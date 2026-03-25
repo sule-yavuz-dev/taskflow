@@ -1,7 +1,11 @@
 package org.example;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
         TaskManager manager = new TaskManager();
 
         Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
@@ -17,11 +21,22 @@ public class Main {
         System.out.println("After delete: ");
         manager.listTask();
 
-        Task foundTask = manager.findTaskById(1);
+        System.out.println("Enter task title: ");
+        String title = scanner.nextLine();
+        System.out.println("You entered: " + title);
 
-        if(foundTask != null){
-            System.out.println("Found: " + foundTask.getTitle());
-        }
+        System.out.println("Enter description: ");
+        String description = scanner.nextLine();
+        System.out.println("You entered description: " + description);
+
+        System.out.println("Enter priority: ");
+        int priority = scanner.nextInt();
+
+        Task newTask = new Task(3, title, description, priority);
+        manager.addTask(newTask);
+
+        System.out.println("After adding new task: ");
+        manager.listTask();
     }
 
 }
