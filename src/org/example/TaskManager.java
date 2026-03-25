@@ -26,4 +26,20 @@ public class TaskManager {
         }
         return null;
     }
+    public void deleteTaskById(int id){
+        boolean found = false;
+        for(int i=0; i<tasks.size(); i++){
+            if(tasks.get(i).getId() == id){
+                tasks.remove(i);
+                found = true;
+                break;
+            }
+        }
+        if(found){
+            System.out.println("Task deleted successfully");
+        }else{
+            System.out.println("Task not found");
+        }
+
+    }
 }

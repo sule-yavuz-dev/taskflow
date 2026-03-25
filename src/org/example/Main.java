@@ -12,6 +12,11 @@ public class Main {
         task1.markAsCompleted();
         manager.listTask();
 
+        manager.deleteTaskById(1);
+
+        System.out.println("After delete: ");
+        manager.listTask();
+
         Task foundTask = manager.findTaskById(1);
 
         if(foundTask != null){
