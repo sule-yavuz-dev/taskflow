@@ -6,11 +6,20 @@ import java.util.List;
 public class TaskManager {
 
     private List<Task> tasks = new ArrayList<>();
+    private int nextId =1;
 
     public void addTask(Task task){
         tasks.add(task);
+        if(task.getId() >= nextId){
+            nextId  = task.getId() + 1;
+        }
     }
 
+    public void addTask(String title, String description, int priority){
+        Task task = new Task(nextId, title,description, priority);
+        tasks.add(task);
+        nextId++;
+    }
     public void listTask(){
         for(Task task : tasks){
             System.out.println(
@@ -42,4 +51,5 @@ public class TaskManager {
         }
 
     }
+
 }

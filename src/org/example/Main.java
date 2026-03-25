@@ -32,8 +32,7 @@ public class Main {
         System.out.println("Enter priority: ");
         int priority = scanner.nextInt();
 
-        Task newTask = new Task(3, title, description, priority);
-        manager.addTask(newTask);
+        manager.addTask(title,description,priority);
 
         System.out.println("After adding new task: ");
         manager.listTask();
