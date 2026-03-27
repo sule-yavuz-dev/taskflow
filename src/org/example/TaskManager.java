@@ -35,6 +35,16 @@ public class TaskManager {
         }
         return null;
     }
+
+    public void updateTaskTitle(int id, String newTitle){
+        Task task = findTaskById(id);
+        if(task != null){
+            task.setTitle(newTitle);
+            System.out.println("Task updated successfully");
+        }else{
+            System.out.println("Task not found");
+        }
+    }
     public void deleteTaskById(int id){
         boolean found = false;
         for(int i=0; i<tasks.size(); i++){

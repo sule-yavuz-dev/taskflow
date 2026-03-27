@@ -21,6 +21,7 @@ public class Main {
             System.out.println("1.Add task");
             System.out.println("2.List tasks");
             System.out.println("3.Delete task");
+            System.out.println("4.Update task");
             System.out.println("0.Exit");
             System.out.println("Choose an option: ");
             int choice = scanner.nextInt();
@@ -51,6 +52,15 @@ public class Main {
                 int id = scanner.nextInt();
                 scanner.nextLine();
                 manager.deleteTaskById(id);
+            }
+            if(choice == 4){
+                System.out.println("Enter task id to update");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.println("Enter new title: ");
+                String newTitle = scanner.nextLine();
+                manager.updateTaskTitle(id, newTitle);
             }
             if(choice ==0){
                 System.out.println("Exiting...");
