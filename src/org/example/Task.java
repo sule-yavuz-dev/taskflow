@@ -5,7 +5,7 @@ public class Task {
     private String title;
     private String description;
     private int priority;
-    private boolean completed;
+    private TaskStatus status;
 
 
     public Task(int id, String title, String description, int priority) {
@@ -13,7 +13,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.priority = priority;
-        this.completed = false;
+        this.status = TaskStatus.PENDING;
     }
 
     public int getId() {
@@ -32,12 +32,15 @@ public class Task {
         return priority;
     }
 
-    public boolean isCompleted() {
-        return completed;
+    public TaskStatus getStatus() {
+        return status;
     }
 
     public void markAsCompleted(){
-        this.completed = true;
+        this.status = TaskStatus.COMPLETED;
+    }
+    public void markAsInProgress(){
+        this.status = TaskStatus.IN_PROGRESS;
     }
 
     public void setTitle(String title){

@@ -23,8 +23,25 @@ public class TaskManager {
     public void listTask(){
         for(Task task : tasks){
             System.out.println(
-                    task.getId() + " - " + task.getTitle() + " - " + task.isCompleted()
+                    task.getId() + " - " + task.getTitle() + " - " + task.getStatus()
             );
+        }
+    }
+    public void listCompletedTasks(){
+        for(Task task : tasks){
+            if(task.getStatus() == TaskStatus.COMPLETED){
+                System.out.println(
+                        task.getId() + " - " + task.getTitle() + " - "+ task.getStatus()
+                );
+            }
+        }
+    }
+
+    public void listPendingTasks(){
+        for(Task task : tasks){
+            if(task.getStatus() == TaskStatus.PENDING){
+                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getStatus());
+            }
         }
     }
     public Task findTaskById(int id){
@@ -41,6 +58,16 @@ public class TaskManager {
         if(task != null){
             task.setTitle(newTitle);
             System.out.println("Task updated successfully");
+        }else{
+            System.out.println("Task not found");
+        }
+    }
+
+    public void markTaskAsCompleted(int id){
+        Task task = findTaskById(id);
+        if(task != null){
+            task.markAsCompleted();
+            System.out.println("Task marked as completed");
         }else{
             System.out.println("Task not found");
         }

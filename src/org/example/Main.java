@@ -22,6 +22,9 @@ public class Main {
             System.out.println("2.List tasks");
             System.out.println("3.Delete task");
             System.out.println("4.Update task");
+            System.out.println("5.Mark as completed");
+            System.out.println("6.List completed tasks");
+            System.out.println("7.List pending tasks");
             System.out.println("0.Exit");
             System.out.println("Choose an option: ");
             int choice = scanner.nextInt();
@@ -61,6 +64,19 @@ public class Main {
                 System.out.println("Enter new title: ");
                 String newTitle = scanner.nextLine();
                 manager.updateTaskTitle(id, newTitle);
+            }
+
+            if(choice == 5){
+                System.out.println("Enter task id to mark as completed: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+                manager.markTaskAsCompleted(id);
+            }
+            if(choice == 6){
+                manager.listCompletedTasks();
+            }
+            if(choice == 7){
+                manager.listPendingTasks();
             }
             if(choice ==0){
                 System.out.println("Exiting...");
