@@ -78,10 +78,23 @@ public class Main {
         }
         System.out.println("You entered description: " + description);
 
-        System.out.println("Enter priority: ");
-        int priority = scanner.nextInt();
-        scanner.nextLine();
+        int priority;
+        while(true) {
+            System.out.println("Enter priority: ");
+            if (scanner.hasNextInt()) {
+                priority = scanner.nextInt();
+                scanner.nextLine();
 
+                if(priority >= 1 && priority <=5){
+                    break;
+                }else{
+                    System.out.println("Priority must be between 1 and 5!");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
         manager.addTask(title, description, priority);
 
         System.out.println("After adding new task: ");
@@ -106,6 +119,7 @@ public class Main {
 
         manager.updateTask(updateId, newTitle, newDescription);
     }
+
     private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager){
         System.out.println("Enter task id to mark as completed: ");
         int completedId = scanner.nextInt();
