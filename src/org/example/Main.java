@@ -111,12 +111,27 @@ public class Main {
         int updateId = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Enter new title: ");
-        String newTitle = scanner.nextLine();
+        String newTitle;
+        while(true) {
+            System.out.println("Enter new title: ");
+            newTitle = scanner.nextLine();
 
-        System.out.println("Enter new description: ");
-        String newDescription = scanner.nextLine();
+            if (!newTitle.isEmpty()) {
+                break;
+            }
+            System.out.println("Title cannot be empty. Try again.");
+        }
 
+        String newDescription;
+        while(true) {
+            System.out.println("Enter new description: ");
+            newDescription = scanner.nextLine();
+
+            if (!newDescription.isEmpty()) {
+                break;
+            }
+            System.out.println("Description cannot be empty. Try again.");
+        }
         manager.updateTask(updateId, newTitle, newDescription);
     }
 
