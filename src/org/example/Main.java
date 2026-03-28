@@ -56,12 +56,26 @@ public class Main {
     }
 
     private static void handleAddTask(Scanner scanner, TaskManager manager) {
+        String title;
+        while(true){
         System.out.println("Enter task title: ");
-        String title = scanner.nextLine();
-        System.out.println("You entered: " + title);
+        title = scanner.nextLine();
 
+        if (!title.isEmpty()){
+            break;
+        }
+            System.out.println("Title cannot be empty. Try again.");
+        }
+        String description;
+        while(true){
         System.out.println("Enter description: ");
-        String description = scanner.nextLine();
+        description = scanner.nextLine();
+
+        if(!description.isEmpty()){
+            break;
+        }
+            System.out.println("Description cannot be empty. Try again.");
+        }
         System.out.println("You entered description: " + description);
 
         System.out.println("Enter priority: ");
@@ -89,6 +103,7 @@ public class Main {
 
         System.out.println("Enter new description: ");
         String newDescription = scanner.nextLine();
+
         manager.updateTask(updateId, newTitle, newDescription);
     }
     private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager){
