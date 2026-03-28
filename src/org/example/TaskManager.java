@@ -53,7 +53,7 @@ public class TaskManager {
         return null;
     }
 
-    public void updateTaskTitle(int id, String newTitle,String newDescription){
+    public void updateTask(int id, String newTitle,String newDescription){
         Task task = findTaskById(id);
         if(task != null){
             task.setTitle(newTitle);

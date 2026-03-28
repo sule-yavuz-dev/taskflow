@@ -20,67 +20,71 @@ public class Main {
             menuHandler.showMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();
-            if (choice == 1) {
-                System.out.println("Enter task title: ");
-                String title = scanner.nextLine();
-                System.out.println("You entered: " + title);
 
-                System.out.println("Enter description: ");
-                String description = scanner.nextLine();
-                System.out.println("You entered description: " + description);
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter task title: ");
+                    String title = scanner.nextLine();
+                    System.out.println("You entered: " + title);
 
-                System.out.println("Enter priority: ");
-                int priority = scanner.nextInt();
-                scanner.nextLine();
+                    System.out.println("Enter description: ");
+                    String description = scanner.nextLine();
+                    System.out.println("You entered description: " + description);
 
-                manager.addTask(title, description, priority);
+                    System.out.println("Enter priority: ");
+                    int priority = scanner.nextInt();
+                    scanner.nextLine();
 
-                System.out.println("After adding new task: ");
-                manager.listTask();
-            }
-            if(choice == 2){
-                manager.listTask();
-            }
-            if(choice == 3){
-                System.out.println("Enter task id to delete: ");
-                int id = scanner.nextInt();
-                scanner.nextLine();
-                manager.deleteTaskById(id);
-            }
-            if(choice == 4){
-                System.out.println("Enter task id to update");
-                int id = scanner.nextInt();
-                scanner.nextLine();
+                    manager.addTask(title, description, priority);
 
-                System.out.println("Enter new title: ");
-                String newTitle = scanner.nextLine();
+                    System.out.println("After adding new task: ");
+                    manager.listTask();
+                    break;
+                case 2:
 
-                System.out.println("Enter new description: ");
-                String newDescription = scanner.nextLine();
-                manager.updateTaskTitle(id, newTitle,newDescription);
-            }
+                    manager.listTask();
+                    break;
+                case 3:
+                    System.out.println("Enter task id to delete: ");
+                    int deleteId = scanner.nextInt();
+                    scanner.nextLine();
+                    manager.deleteTaskById(deleteId);
+                    break;
+                case 4:
+                    System.out.println("Enter task id to update: ");
+                    int updateId = scanner.nextInt();
+                    scanner.nextLine();
 
-            if(choice == 5){
-                System.out.println("Enter task id to mark as completed: ");
-                int id = scanner.nextInt();
-                scanner.nextLine();
-                manager.markTaskAsCompleted(id);
-            }
-            if(choice == 6){
-                manager.listCompletedTasks();
-            }
-            if(choice == 7){
-                manager.listPendingTasks();
-            }
-            if(choice == 8){
-                System.out.println("Enter task id to mark as IN_PROGRESS: ");
-                int id = scanner.nextInt();
-                scanner.nextLine();
-                manager.markTaskAsInProgress(id);
-            }
-            if(choice ==0){
-                System.out.println("Exiting...");
-                break;
+                    System.out.println("Enter new title: ");
+                    String newTitle = scanner.nextLine();
+
+                    System.out.println("Enter new description: ");
+                    String newDescription = scanner.nextLine();
+                    manager.updateTask(updateId, newTitle, newDescription);
+                    break;
+                case 5:
+                    System.out.println("Enter task id to mark as completed: ");
+                    int completedId = scanner.nextInt();
+                    scanner.nextLine();
+                    manager.markTaskAsCompleted(completedId);
+                    break;
+                case 6:
+                    manager.listCompletedTasks();
+                    break;
+                case 7:
+                    manager.listPendingTasks();
+                    break;
+                case 8:
+                    System.out.println("Enter task id to mark as IN_PROGRESS: ");
+                    int progressId = scanner.nextInt();
+                    scanner.nextLine();
+                    manager.markTaskAsInProgress(progressId);
+                    break;
+                case 0:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice");
             }
 
         }
