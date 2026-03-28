@@ -23,7 +23,7 @@ public class TaskManager {
     public void listTask(){
         for(Task task : tasks){
             System.out.println(
-                    task.getId() + " - " + task.getTitle() + " - " + task.getStatus()
+                    task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " + task.getStatus()
             );
         }
     }
@@ -40,7 +40,7 @@ public class TaskManager {
     public void listPendingTasks(){
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.PENDING){
-                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getStatus());
+                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+ task.getStatus());
             }
         }
     }
@@ -53,10 +53,11 @@ public class TaskManager {
         return null;
     }
 
-    public void updateTaskTitle(int id, String newTitle){
+    public void updateTaskTitle(int id, String newTitle,String newDescription){
         Task task = findTaskById(id);
         if(task != null){
             task.setTitle(newTitle);
+            task.setDescription(newDescription);
             System.out.println("Task updated successfully");
         }else{
             System.out.println("Task not found");

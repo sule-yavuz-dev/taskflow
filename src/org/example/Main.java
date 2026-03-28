@@ -1,6 +1,7 @@
 package org.example;
 
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -63,7 +64,10 @@ public class Main {
 
                 System.out.println("Enter new title: ");
                 String newTitle = scanner.nextLine();
-                manager.updateTaskTitle(id, newTitle);
+
+                System.out.println("Enter new description: ");
+                String newDescription = scanner.nextLine();
+                manager.updateTaskTitle(id, newTitle,newDescription);
             }
 
             if(choice == 5){
