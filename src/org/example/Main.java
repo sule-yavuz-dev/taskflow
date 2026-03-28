@@ -1,6 +1,7 @@
 package org.example;
 
 
+
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
@@ -26,6 +27,8 @@ public class Main {
             System.out.println("5.Mark as completed");
             System.out.println("6.List completed tasks");
             System.out.println("7.List pending tasks");
+            System.out.println("8.Mark as in progress");
+            System.out.println();
             System.out.println("0.Exit");
             System.out.println("Choose an option: ");
             int choice = scanner.nextInt();
@@ -81,6 +84,12 @@ public class Main {
             }
             if(choice == 7){
                 manager.listPendingTasks();
+            }
+            if(choice == 8){
+                System.out.println("Enter task id to mark as IN_PROGRESS: ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+                manager.markTaskAsInProgress(id);
             }
             if(choice ==0){
                 System.out.println("Exiting...");

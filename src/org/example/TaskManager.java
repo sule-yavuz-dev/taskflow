@@ -73,6 +73,16 @@ public class TaskManager {
             System.out.println("Task not found");
         }
     }
+
+    public void markTaskAsInProgress(int id){
+        Task task = findTaskById(id);
+        if(task != null){
+            task.markAsInProgress();
+            System.out.println("Task marked as IN_PROGRESS");
+        }else{
+            System.out.println("Task not found");
+        }
+    }
     public void deleteTaskById(int id){
         boolean found = false;
         for(int i=0; i<tasks.size(); i++){
