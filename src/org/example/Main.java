@@ -23,50 +23,19 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Enter task title: ");
-                    String title = scanner.nextLine();
-                    System.out.println("You entered: " + title);
-
-                    System.out.println("Enter description: ");
-                    String description = scanner.nextLine();
-                    System.out.println("You entered description: " + description);
-
-                    System.out.println("Enter priority: ");
-                    int priority = scanner.nextInt();
-                    scanner.nextLine();
-
-                    manager.addTask(title, description, priority);
-
-                    System.out.println("After adding new task: ");
-                    manager.listTask();
+                    handleAddTask(scanner, manager);
                     break;
                 case 2:
-
                     manager.listTask();
                     break;
                 case 3:
-                    System.out.println("Enter task id to delete: ");
-                    int deleteId = scanner.nextInt();
-                    scanner.nextLine();
-                    manager.deleteTaskById(deleteId);
+                    handleDeleteTask(scanner,manager);
                     break;
                 case 4:
-                    System.out.println("Enter task id to update: ");
-                    int updateId = scanner.nextInt();
-                    scanner.nextLine();
-
-                    System.out.println("Enter new title: ");
-                    String newTitle = scanner.nextLine();
-
-                    System.out.println("Enter new description: ");
-                    String newDescription = scanner.nextLine();
-                    manager.updateTask(updateId, newTitle, newDescription);
+                    handleUpdateTask(scanner, manager);
                     break;
                 case 5:
-                    System.out.println("Enter task id to mark as completed: ");
-                    int completedId = scanner.nextInt();
-                    scanner.nextLine();
-                    manager.markTaskAsCompleted(completedId);
+                    handleMarkAsCompleted(scanner,manager);
                     break;
                 case 6:
                     manager.listCompletedTasks();
@@ -75,10 +44,7 @@ public class Main {
                     manager.listPendingTasks();
                     break;
                 case 8:
-                    System.out.println("Enter task id to mark as IN_PROGRESS: ");
-                    int progressId = scanner.nextInt();
-                    scanner.nextLine();
-                    manager.markTaskAsInProgress(progressId);
+                    handleMarkAsInProgress(scanner,manager);
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -86,7 +52,58 @@ public class Main {
                 default:
                     System.out.println("Invalid choice");
             }
-
         }
     }
+
+    private static void handleAddTask(Scanner scanner, TaskManager manager) {
+        System.out.println("Enter task title: ");
+        String title = scanner.nextLine();
+        System.out.println("You entered: " + title);
+
+        System.out.println("Enter description: ");
+        String description = scanner.nextLine();
+        System.out.println("You entered description: " + description);
+
+        System.out.println("Enter priority: ");
+        int priority = scanner.nextInt();
+        scanner.nextLine();
+
+        manager.addTask(title, description, priority);
+
+        System.out.println("After adding new task: ");
+        manager.listTask();
+    }
+    private static void handleDeleteTask(Scanner scanner, TaskManager manager){
+        System.out.println("Enter task id to delete: ");
+        int deleteId = scanner.nextInt();
+        scanner.nextLine();
+        manager.deleteTaskById(deleteId);
+    }
+    private static void handleUpdateTask(Scanner scanner, TaskManager manager){
+        System.out.println("Enter task id to update: ");
+        int updateId = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Enter new title: ");
+        String newTitle = scanner.nextLine();
+
+        System.out.println("Enter new description: ");
+        String newDescription = scanner.nextLine();
+        manager.updateTask(updateId, newTitle, newDescription);
+    }
+    private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager){
+        System.out.println("Enter task id to mark as completed: ");
+        int completedId = scanner.nextInt();
+        scanner.nextLine();
+        manager.markTaskAsCompleted(completedId);
+    }
+    private static void handleMarkAsInProgress(Scanner scanner, TaskManager manager){
+        System.out.println("Enter task id to mark as IN_PROGRESS: ");
+        int progressId = scanner.nextInt();
+        scanner.nextLine();
+        manager.markTaskAsInProgress(progressId);
+    }
+
 }
+
+
