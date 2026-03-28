@@ -1,8 +1,5 @@
 package org.example;
 
-
-
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -17,20 +14,10 @@ public class Main {
         manager.addTask(task2);
         task1.markAsCompleted();
         manager.listTask();
+        MenuHandler menuHandler = new MenuHandler();
 
         while (true) {
-            System.out.println("\n=== Task Manager ===");
-            System.out.println("1.Add task");
-            System.out.println("2.List tasks");
-            System.out.println("3.Delete task");
-            System.out.println("4.Update task");
-            System.out.println("5.Mark as completed");
-            System.out.println("6.List completed tasks");
-            System.out.println("7.List pending tasks");
-            System.out.println("8.Mark as in progress");
-            System.out.println();
-            System.out.println("0.Exit");
-            System.out.println("Choose an option: ");
+            menuHandler.showMenu();
             int choice = scanner.nextInt();
             scanner.nextLine();
             if (choice == 1) {
