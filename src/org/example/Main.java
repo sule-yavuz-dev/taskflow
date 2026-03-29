@@ -107,36 +107,20 @@ public class Main {
     }
 
     private static void handleDeleteTask(Scanner scanner, TaskManager manager) {
-        System.out.println("Enter task id to delete: ");
-        int deleteId;
-        while (true) {
-            if (scanner.hasNextInt()) {
-                deleteId = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid task id.");
-                scanner.nextLine();
-            }
-        }
+        int deleteId = readInt(
+                scanner,
+                "Enter task id to delete: ",
+                "Invalid input. Please enter a valid task id."
+        );
         manager.deleteTaskById(deleteId);
     }
 
     private static void handleUpdateTask(Scanner scanner, TaskManager manager) {
-        System.out.println("Enter task id to update: ");
-        int updateId;
-        while (true) {
-            if (scanner.hasNextInt()) {
-                updateId = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid task id.");
-
-                scanner.nextLine();
-            }
-
-        }
+        int updateId = readInt(
+                scanner,
+                "Enter task id to update:",
+                "Invalid input. Please enter a valid task id."
+        );
         String newTitle;
         while (true) {
             System.out.println("Enter new title: ");
@@ -161,18 +145,11 @@ public class Main {
         manager.updateTask(updateId, newTitle, newDescription);
     }
     private static void handleUpdatePriority(Scanner scanner, TaskManager manager) {
-        System.out.println("Enter task id to update priority: ");
-        int id;
-        while (true) {
-            if (scanner.hasNextInt()) {
-                id = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid task id.");
-                scanner.nextLine();
-            }
-        }
+       int id = readInt(
+               scanner,
+               "Enter task id to update priority:",
+               "Invalid input. Please enter a valid task id."
+       );
 
         System.out.println("Enter new priority (1-5): ");
         int newPriority;
@@ -196,35 +173,20 @@ public class Main {
 
     }
     private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager) {
-        System.out.println("Enter task id to mark as completed: ");
-        int completedId;
-        while (true) {
-            if (scanner.hasNextInt()) {
-                completedId = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid task id.");
-
-                scanner.nextLine();
-            }
-        }
+        int completedId = readInt(
+                scanner,
+                "Enter task id to mark as completed:",
+                "Invalid input. Please enter a valid task id."
+        );
         manager.markTaskAsCompleted(completedId);
     }
 
     private static void handleMarkAsInProgress(Scanner scanner, TaskManager manager) {
-        System.out.println("Enter task id to mark as IN_PROGRESS: ");
-        int progressId;
-        while (true) {
-            if (scanner.hasNextInt()) {
-                progressId = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid task id.");
-                scanner.nextLine();
-            }
-        }
+        int progressId  = readInt(
+                scanner,
+                "Enter task id to mark as IN_PROGRESS:",
+                "Invalid input. Please enter a valid task id."
+        );
         manager.markTaskAsInProgress(progressId);
     }
 
@@ -237,6 +199,22 @@ public class Main {
                 return choice;
             } else {
                 System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
+    }
+    private static int readInt(Scanner scanner, String message, String errorMessage){
+        int value;
+
+        while(true){
+            System.out.println(message);
+
+            if(scanner.hasNextInt()){
+                value = scanner.nextInt();
+                scanner.nextLine();
+                return value;
+            }else{
+                System.out.println(errorMessage);
                 scanner.nextLine();
             }
         }
