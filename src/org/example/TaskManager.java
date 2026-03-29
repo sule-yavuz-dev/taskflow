@@ -23,7 +23,7 @@ public class TaskManager {
     public void listTask(){
         for(Task task : tasks){
             System.out.println(
-                    task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " + task.getStatus()
+                    task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " +"Priority: "+ task.getPriority()+" - "+ task.getStatus()
             );
         }
     }
@@ -31,7 +31,7 @@ public class TaskManager {
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
                 System.out.println(
-                        task.getId() + " - " + task.getTitle() + " - "+ task.getStatus()
+                        task.getId() + " - " + task.getTitle() + " - "+"Priority: "+ task.getPriority()+" - "+ task.getStatus()
                 );
             }
         }
@@ -40,7 +40,7 @@ public class TaskManager {
     public void listPendingTasks(){
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.PENDING){
-                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+ task.getStatus());
+                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+"Priority: "+ task.getPriority()+" - "+ task.getStatus());
             }
         }
     }
