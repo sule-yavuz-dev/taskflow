@@ -63,6 +63,15 @@ public class TaskManager {
             System.out.println("Task not found");
         }
     }
+    public void updateTaskPriority(int id, int newPriority){
+        Task task = findTaskById(id);
+        if(task != null){
+            task.setPriority(newPriority);
+            System.out.println("Task priority updated successfully");
+        }else{
+            System.out.println("Task not found");
+        }
+    }
 
     public void markTaskAsCompleted(int id){
         Task task = findTaskById(id);

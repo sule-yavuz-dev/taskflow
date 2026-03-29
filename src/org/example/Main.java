@@ -48,6 +48,9 @@ public class Main {
                 case 9:
                     manager.listTasksByPriority();
                     break;
+                case 10:
+                    handleUpdatePriority(scanner,manager);
+                    break;
                 case 0:
                     System.out.println("Exiting...");
                     return;
@@ -157,7 +160,41 @@ public class Main {
         }
         manager.updateTask(updateId, newTitle, newDescription);
     }
+    private static void handleUpdatePriority(Scanner scanner, TaskManager manager) {
+        System.out.println("Enter task id to update priority: ");
+        int id;
+        while (true) {
+            if (scanner.hasNextInt()) {
+                id = scanner.nextInt();
+                scanner.nextLine();
+                break;
+            } else {
+                System.out.println("Invalid input. Please enter a valid task id.");
+                scanner.nextLine();
+            }
+        }
 
+        System.out.println("Enter new priority (1-5): ");
+        int newPriority;
+
+        while (true) {
+            if (scanner.hasNextInt()) {
+                newPriority = scanner.nextInt();
+                scanner.nextLine();
+
+                if (newPriority >= 1 && newPriority <= 5) {
+                    break;
+                } else {
+                    System.out.println("Priority must be between 1 and 5.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
+            }
+        }
+        manager.updateTaskPriority(id, newPriority);
+
+    }
     private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager) {
         System.out.println("Enter task id to mark as completed: ");
         int completedId;
