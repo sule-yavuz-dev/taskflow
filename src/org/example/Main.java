@@ -61,28 +61,15 @@ public class Main {
     }
 
     private static void handleAddTask(Scanner scanner, TaskManager manager) {
-        String title;
-        while (true) {
-            System.out.println("Enter task title: ");
-            title = scanner.nextLine();
+        String title = readNonEmptyString(
+                scanner,
+                "Enter task title:"
+        );
 
-            if (!title.isEmpty()) {
-                break;
-            }
-            System.out.println("Title cannot be empty. Try again.");
-        }
-        String description;
-        while (true) {
-            System.out.println("Enter description: ");
-            description = scanner.nextLine();
-
-            if (!description.isEmpty()) {
-                break;
-            }
-            System.out.println("Description cannot be empty. Try again.");
-        }
-        System.out.println("You entered description: " + description);
-
+        String description= readNonEmptyString(
+                scanner,
+                "Enter description:"
+        );
         int priority = readPriority(scanner);
         manager.addTask(title, description, priority);
 
@@ -198,6 +185,20 @@ public class Main {
                 return value;
             }else{
                 System.out.println("Priority must be between 1 and 5.");
+            }
+        }
+    }
+    private static String readNonEmptyString(Scanner scanner, String message){
+        String value;
+
+        while(true){
+            System.out.println(message);
+            value = scanner.nextLine();
+
+            if(!value.trim().isEmpty()){
+                return value;
+            }else{
+                System.out.println("Input cannot be empty. Try again.");
             }
         }
     }
