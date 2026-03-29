@@ -10,9 +10,23 @@ public class Main {
 
         Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
         Task task2 = new Task(2, "Go to gym", "Workout for 1 hour", 3);
+        Task task3 = new Task(3, "Review pull request", "Check code changes and leave comments", 1);
+        Task task4 = new Task(4, "Write unit tests", "Cover TaskManager methods with basic tests",2);
+        Task task5 = new Task(5,"Fix login bug","Resolve invalid input issue on login screen",1);
+        Task task6 = new Task(6, "Update documentation","Improve README and usage instructions", 4);
+        Task task7 = new Task(7, "Prepare release notes", "Summarize completed changes for release", 5);
         manager.addTask(task1);
         manager.addTask(task2);
+        manager.addTask(task3);
+        manager.addTask(task4);
+        manager.addTask(task5);
+        manager.addTask(task6);
+        manager.addTask(task7);
+
         task1.markAsCompleted();
+        task3.markAsInProgress();
+        task5.markAsInProgress();
+        task6.markAsCompleted();
         manager.listTask();
         MenuHandler menuHandler = new MenuHandler();
 
@@ -50,6 +64,9 @@ public class Main {
                     break;
                 case 10:
                     handleUpdatePriority(scanner,manager);
+                    break;
+                case 11:
+                    handleSearch(scanner, manager);
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -142,6 +159,13 @@ public class Main {
                 "Invalid input. Please enter a valid task id."
         );
         manager.markTaskAsInProgress(progressId);
+    }
+    private static void handleSearch(Scanner scanner, TaskManager manager){
+        String keyword = readNonEmptyString(
+                scanner,
+                "Enter keyword to search:"
+        );
+        manager.searchTasks(keyword);
     }
 
     private static int readMenuChoice(Scanner scanner) {

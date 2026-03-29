@@ -167,5 +167,20 @@ public class TaskManager {
             System.out.println("No tasks found");
         }
     }
+    public void searchTasks(String keyword){
+        boolean found = false;
+        System.out.println("=== SEARCH RESULTS ===");
+        String searchKey = keyword.toLowerCase();
+        for(Task task : tasks){
+            if(task. getTitle().toLowerCase().contains(searchKey) || task.getDescription().toLowerCase().contains(searchKey)){
+                System.out.println(task.getId()+ " - "+ task.getTitle()+ " - " + task.getDescription()+ " - "+getPriorityLabel(task) + " - "+task.getStatus()
+                );
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println("No tasks found");
+        }
+    }
 
 }
