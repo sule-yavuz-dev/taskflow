@@ -112,5 +112,51 @@ public class TaskManager {
             return "Low priority";
         }
     }
+    public void listTasksByPriority(){
+        System.out.println("=== HIGH PRIORITY ===");
+        boolean foundHigh = false;
+        for(Task task : tasks){
+            if(task.getStatus() != TaskStatus.COMPLETED && (task.getPriority() == 1 || task.getPriority() == 2)){
+                System.out.println(task.getId() + " - " + task.getTitle());
+                foundHigh = true;
+            }
+        }
+        if(!foundHigh){
+            System.out.println("No tasks found");
+        }
+        System.out.println("\n=== MEDIUM PRIORITY ===");
+        boolean foundMedium = false;
+        for(Task task : tasks){
+            if(task.getStatus() != TaskStatus.COMPLETED && task.getPriority() ==3){
+                System.out.println(task.getId() + " - " + task.getTitle());
+                foundMedium = true;
+            }
+        }
+        if(!foundMedium){
+            System.out.println("No tasks found");
+        }
+        System.out.println("\n === LOW PRIORITY ===");
+        boolean foundLow = false;
+        for(Task task : tasks){
+            if(task.getStatus() != TaskStatus.COMPLETED && task.getPriority() > 3){
+                System.out.println(task.getId() + " - " + task.getTitle());
+                foundLow = true;
+            }
+        }
+        if(!foundLow){
+            System.out.println("No tasks found");
+        }
+        System.out.println("\n === COMPLETED ===");
+        boolean foundCompleted = false;
+        for(Task task : tasks){
+            if(task.getStatus() == TaskStatus.COMPLETED){
+                System.out.println(task.getId()+ " - " + task.getTitle());
+                foundCompleted = true;
+            }
+        }
+        if(!foundCompleted){
+            System.out.println("No tasks found");
+        }
+    }
 
 }

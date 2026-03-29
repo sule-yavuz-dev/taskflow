@@ -45,6 +45,9 @@ public class Main {
                 case 8:
                     handleMarkAsInProgress(scanner, manager);
                     break;
+                case 9:
+                    manager.listTasksByPriority();
+                    break;
                 case 0:
                     System.out.println("Exiting...");
                     return;
