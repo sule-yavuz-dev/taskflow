@@ -23,7 +23,7 @@ public class TaskManager {
     public void listTask(){
         for(Task task : tasks){
             System.out.println(
-                    task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " +"Priority: "+ task.getPriority()+" - "+ task.getStatus()
+                    task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " + getPriorityLabel(task)+" - "+ task.getStatus()
             );
         }
     }
@@ -31,7 +31,7 @@ public class TaskManager {
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
                 System.out.println(
-                        task.getId() + " - " + task.getTitle() + " - "+"Priority: "+ task.getPriority()+" - "+ task.getStatus()
+                        task.getId() + " - " + task.getTitle() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus()
                 );
             }
         }
@@ -40,7 +40,7 @@ public class TaskManager {
     public void listPendingTasks(){
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.PENDING){
-                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+"Priority: "+ task.getPriority()+" - "+ task.getStatus());
+                System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus());
             }
         }
     }
@@ -98,6 +98,19 @@ public class TaskManager {
             System.out.println("Task not found");
         }
 
+    }
+    private String getPriorityLabel(Task task){
+        if(task.getStatus() == TaskStatus.COMPLETED){
+            return "No active priority";
+        }
+        int priority = task.getPriority();
+        if(priority == 1 || priority == 2){
+            return "High priority";
+        }else if(priority ==3){
+            return "Medium priority";
+        }else{
+            return "Low priority";
+        }
     }
 
 }
