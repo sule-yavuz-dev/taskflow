@@ -83,23 +83,7 @@ public class Main {
         }
         System.out.println("You entered description: " + description);
 
-        int priority;
-        while (true) {
-            System.out.println("Enter priority: ");
-            if (scanner.hasNextInt()) {
-                priority = scanner.nextInt();
-                scanner.nextLine();
-
-                if (priority >= 1 && priority <= 5) {
-                    break;
-                } else {
-                    System.out.println("Priority must be between 1 and 5!");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
-            }
-        }
+        int priority = readPriority(scanner);
         manager.addTask(title, description, priority);
 
         System.out.println("After adding new task: ");
@@ -151,24 +135,7 @@ public class Main {
                "Invalid input. Please enter a valid task id."
        );
 
-        System.out.println("Enter new priority (1-5): ");
-        int newPriority;
-
-        while (true) {
-            if (scanner.hasNextInt()) {
-                newPriority = scanner.nextInt();
-                scanner.nextLine();
-
-                if (newPriority >= 1 && newPriority <= 5) {
-                    break;
-                } else {
-                    System.out.println("Priority must be between 1 and 5.");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
-            }
-        }
+        int newPriority = readPriority(scanner);
         manager.updateTaskPriority(id, newPriority);
 
     }
@@ -216,6 +183,21 @@ public class Main {
             }else{
                 System.out.println(errorMessage);
                 scanner.nextLine();
+            }
+        }
+    }
+    private static int readPriority(Scanner scanner){
+        int value;
+        while(true){
+            value = readInt(
+                    scanner,
+                    "Enter priority (1-5):",
+                    "Invalid input. Please enter a number."
+            );
+            if(value >= 1 && value <= 5){
+                return value;
+            }else{
+                System.out.println("Priority must be between 1 and 5.");
             }
         }
     }
