@@ -22,6 +22,7 @@ public class TaskManager {
         nextId++;
     }
     public void listTask(){
+        if (isEmptyAndPrintMessage()) return;
         for(Task task : tasks){
             System.out.println(
                     task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " + getPriorityLabel(task)+" - "+ task.getStatus()
@@ -29,6 +30,13 @@ public class TaskManager {
         }
     }
     public void listCompletedTasks(){
+        if (isEmptyAndPrintMessage()) return;
+        boolean hasCompleted = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
+
+        if (!hasCompleted) {
+            System.out.println("No completed tasks found");
+            return;
+        }
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
                 System.out.println(
@@ -39,6 +47,13 @@ public class TaskManager {
     }
 
     public void listPendingTasks(){
+        if (isEmptyAndPrintMessage()) return;
+        boolean hasPending = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.PENDING);
+
+        if(!hasPending){
+            System.out.println("No pending tasks found");
+            return;
+        }
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.PENDING){
                 System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus());
@@ -198,6 +213,13 @@ public class TaskManager {
             );
         }
 
+    }
+    private boolean isEmptyAndPrintMessage(){
+        if(tasks.isEmpty()){
+            System.out.println("No tasks available");
+            return true;
+        }
+        return false;
     }
 
 }
