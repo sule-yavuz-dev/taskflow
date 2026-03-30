@@ -138,6 +138,8 @@ public class TaskManager {
         }
     }
     public void listTasksByPriority(){
+
+        if(isEmptyAndPrintMessage()) return;
         System.out.println("=== HIGH PRIORITY ===");
         boolean foundHigh = false;
         for(Task task : tasks){
@@ -147,7 +149,7 @@ public class TaskManager {
             }
         }
         if(!foundHigh){
-            System.out.println("No tasks found");
+            System.out.println("No high priority tasks found");
         }
         System.out.println("\n=== MEDIUM PRIORITY ===");
         boolean foundMedium = false;
@@ -158,9 +160,9 @@ public class TaskManager {
             }
         }
         if(!foundMedium){
-            System.out.println("No tasks found");
+            System.out.println("No medium priority tasks found");
         }
-        System.out.println("\n === LOW PRIORITY ===");
+        System.out.println("\n=== LOW PRIORITY ===");
         boolean foundLow = false;
         for(Task task : tasks){
             if(task.getStatus() != TaskStatus.COMPLETED && task.getPriority() > 3){
@@ -169,9 +171,9 @@ public class TaskManager {
             }
         }
         if(!foundLow){
-            System.out.println("No tasks found");
+            System.out.println("No low priority tasks found");
         }
-        System.out.println("\n === COMPLETED ===");
+        System.out.println("\n=== COMPLETED ===");
         boolean foundCompleted = false;
         for(Task task : tasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
@@ -180,7 +182,7 @@ public class TaskManager {
             }
         }
         if(!foundCompleted){
-            System.out.println("No tasks found");
+            System.out.println("No completed tasks found");
         }
     }
     public void searchTasks(String keyword){
@@ -220,6 +222,21 @@ public class TaskManager {
             return true;
         }
         return false;
+    }
+    public void listHighPriorityTasks(){
+        if(isEmptyAndPrintMessage())return;
+
+        boolean hasHighPriority = tasks.stream().anyMatch(task -> task.getStatus() != TaskStatus.COMPLETED &&(task.getPriority() == 1 || task.getPriority() ==2));
+
+        if(!hasHighPriority){
+            System.out.println("No high priority tasks found");
+            return;
+        }
+        for(Task task : tasks){
+            if(task.getStatus() != TaskStatus.COMPLETED &&(task.getPriority() == 1 || task.getPriority() == 2)){
+                System.out.println(task.getId()+" - "+ task.getTitle()+ " - " + task.getDescription()+" - "+getPriorityLabel(task)+ " - " +task.getStatus());
+            }
+        }
     }
 
 }

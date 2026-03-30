@@ -19,6 +19,7 @@ public class MenuHandler {
         "10.Update task priority",
         "11.Search tasks",
         "12.Sort tasks by priority",
+        "13.List high priority tasks",
         "0.Exit"
     );
         for(String item : menuItems){

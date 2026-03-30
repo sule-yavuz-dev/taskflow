@@ -71,6 +71,9 @@ public class Main {
                 case 12:
                     manager.listTasksSortedByPriority();
                     break;
+                case 13:
+                    manager.listHighPriorityTasks();
+                    break;
                 case 0:
                     System.out.println("Exiting...");
                     return;
