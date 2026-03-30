@@ -68,6 +68,9 @@ public class Main {
                 case 11:
                     handleSearch(scanner, manager);
                     break;
+                case 12:
+                    manager.listTasksSortedByPriority();
+                    break;
                 case 0:
                     System.out.println("Exiting...");
                     return;

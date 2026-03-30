@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class TaskManager {
@@ -181,6 +182,22 @@ public class TaskManager {
         if(!found){
             System.out.println("No tasks found");
         }
+    }
+    public void listTasksSortedByPriority(){
+        if(tasks.isEmpty()){
+            System.out.println("No tasks available");
+            return;
+        }
+        List<Task> sortedTasks = new ArrayList<>(tasks);
+
+        sortedTasks.sort(Comparator.comparing((Task t) -> t.getStatus() == TaskStatus.COMPLETED).thenComparingInt(Task::getPriority));
+
+        for(Task task : sortedTasks){
+            System.out.println(
+                    task.getId() + " - " + task.getTitle() + " - "+task.getDescription() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus()
+            );
+        }
+
     }
 
 }

@@ -14,6 +14,7 @@ public class MenuHandler {
         System.out.println("9.List tasks by priority");
         System.out.println("10.Update task priority");
         System.out.println("11.Search tasks");
+        System.out.println("12.Sort tasks by priority");
         System.out.println("0.Exit");
         System.out.println("Choose an option: ");
     }
