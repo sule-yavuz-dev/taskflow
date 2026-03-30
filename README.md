@@ -32,10 +32,11 @@ git clone https://github.com/sule-yavuz-dev/taskflow.git
 3. Run the `Main` class
 
 ## Example Output
+```
 1 - Learn Java - Study OOP concepts - High priority - IN_PROGRESS 
 2 - Fix bug - Resolve login issue - Medium priority - PENDING 
 3 - Write tests - Add unit tests - No active priority - COMPLETED
-
+```
 ## Notes
 This project is the foundation for a full-stack task management application.
 Future improvements will include:
