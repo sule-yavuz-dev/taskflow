@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.exception.TaskNotFoundException;
 import org.example.service.TaskService;
 
 import java.util.ArrayList;
@@ -73,68 +74,47 @@ public class TaskManager implements TaskService {
                 return task;
             }
         }
-        return null;
+        throw new TaskNotFoundException("Task not found with id: "+ id);
     }
 
     @Override
     public void updateTask(int id, String newTitle,String newDescription){
         Task task = findTaskById(id);
-        if(task != null){
+
             task.setTitle(newTitle);
             task.setDescription(newDescription);
             System.out.println("Task updated successfully");
-        }else{
-            System.out.println("Task not found");
         }
-    }
+
     @Override
-    public void updateTaskPriority(int id, int newPriority){
+    public void updateTaskPriority(int id, int newPriority) {
         Task task = findTaskById(id);
-        if(task != null){
-            task.setPriority(newPriority);
-            System.out.println("Task priority updated successfully");
-        }else{
-            System.out.println("Task not found");
-        }
+
+        task.setPriority(newPriority);
+        System.out.println("Task priority updated successfully");
     }
 
     @Override
     public void markTaskAsCompleted(int id){
         Task task = findTaskById(id);
-        if(task != null){
+
             task.markAsCompleted();
             System.out.println("Task marked as completed");
-        }else{
-            System.out.println("Task not found");
-        }
+
     }
 
     @Override
     public void markTaskAsInProgress(int id){
         Task task = findTaskById(id);
-        if(task != null){
+
             task.markAsInProgress();
             System.out.println("Task marked as IN_PROGRESS");
-        }else{
-            System.out.println("Task not found");
-        }
     }
     @Override
     public void deleteTaskById(int id){
-        boolean found = false;
-        for(int i=0; i<tasks.size(); i++){
-            if(tasks.get(i).getId() == id){
-                tasks.remove(i);
-                found = true;
-                break;
-            }
-        }
-        if(found){
+            Task task = findTaskById(id);
+            tasks.remove(task);
             System.out.println("Task deleted successfully");
-        }else{
-            System.out.println("Task not found");
-        }
-
     }
     private String getPriorityLabel(Task task){
         if(task.getStatus() == TaskStatus.COMPLETED){

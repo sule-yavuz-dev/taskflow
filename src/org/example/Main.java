@@ -1,4 +1,5 @@
 package org.example;
+import org.example.exception.TaskNotFoundException;
 import org.example.service.TaskService;
 import java.util.Scanner;
 
@@ -106,7 +107,11 @@ public class Main {
                 "Enter task id to delete: ",
                 "Invalid input. Please enter a valid task id."
         );
-        manager.deleteTaskById(deleteId);
+        try {
+            manager.deleteTaskById(deleteId);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private static void handleUpdateTask(Scanner scanner, TaskService manager) {
