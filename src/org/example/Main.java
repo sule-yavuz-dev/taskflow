@@ -1,12 +1,12 @@
 package org.example;
-
+import org.example.service.TaskService;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        TaskManager manager = new TaskManager();
+        TaskService manager = new TaskManager();
 
         Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
         Task task2 = new Task(2, "Go to gym", "Workout for 1 hour", 3);
@@ -83,7 +83,7 @@ public class Main {
         }
     }
 
-    private static void handleAddTask(Scanner scanner, TaskManager manager) {
+    private static void handleAddTask(Scanner scanner, TaskService manager) {
         String title = readNonEmptyString(
                 scanner,
                 "Enter task title:"
@@ -100,7 +100,7 @@ public class Main {
         manager.listTask();
     }
 
-    private static void handleDeleteTask(Scanner scanner, TaskManager manager) {
+    private static void handleDeleteTask(Scanner scanner, TaskService manager) {
         int deleteId = readInt(
                 scanner,
                 "Enter task id to delete: ",
@@ -109,7 +109,7 @@ public class Main {
         manager.deleteTaskById(deleteId);
     }
 
-    private static void handleUpdateTask(Scanner scanner, TaskManager manager) {
+    private static void handleUpdateTask(Scanner scanner, TaskService manager) {
         int updateId = readInt(
                 scanner,
                 "Enter task id to update:",
@@ -138,7 +138,7 @@ public class Main {
         }
         manager.updateTask(updateId, newTitle, newDescription);
     }
-    private static void handleUpdatePriority(Scanner scanner, TaskManager manager) {
+    private static void handleUpdatePriority(Scanner scanner, TaskService manager) {
        int id = readInt(
                scanner,
                "Enter task id to update priority:",
@@ -149,7 +149,7 @@ public class Main {
         manager.updateTaskPriority(id, newPriority);
 
     }
-    private static void handleMarkAsCompleted(Scanner scanner, TaskManager manager) {
+    private static void handleMarkAsCompleted(Scanner scanner, TaskService manager) {
         int completedId = readInt(
                 scanner,
                 "Enter task id to mark as completed:",
@@ -158,7 +158,7 @@ public class Main {
         manager.markTaskAsCompleted(completedId);
     }
 
-    private static void handleMarkAsInProgress(Scanner scanner, TaskManager manager) {
+    private static void handleMarkAsInProgress(Scanner scanner, TaskService manager) {
         int progressId  = readInt(
                 scanner,
                 "Enter task id to mark as IN_PROGRESS:",
@@ -166,7 +166,7 @@ public class Main {
         );
         manager.markTaskAsInProgress(progressId);
     }
-    private static void handleSearch(Scanner scanner, TaskManager manager){
+    private static void handleSearch(Scanner scanner, TaskService manager){
         String keyword = readNonEmptyString(
                 scanner,
                 "Enter keyword to search:"

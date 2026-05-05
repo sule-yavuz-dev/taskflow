@@ -1,0 +1,21 @@
+package org.example.service;
+
+import org.example.Task;
+
+public interface TaskService {
+    void addTask(Task task);
+    void  addTask(String title, String description, int priority);
+    void deleteTaskById(int id);
+    void updateTask(int id, String newTitle, String newDescription);
+    void updateTaskPriority(int id, int newPriority);
+    void markTaskAsCompleted(int id);
+    void markTaskAsInProgress(int id);
+    void listTask();
+    void listCompletedTasks();
+    void listPendingTasks();
+    void listTasksByPriority();
+    void searchTasks(String keyword);
+    void listTasksSortedByPriority();
+    void listHighPriorityTasks();
+
+}

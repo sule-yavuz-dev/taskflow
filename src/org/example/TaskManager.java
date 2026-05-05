@@ -1,14 +1,17 @@
 package org.example;
 
+import org.example.service.TaskService;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class TaskManager {
+public class TaskManager implements TaskService {
 
     private List<Task> tasks = new ArrayList<>();
     private int nextId =1;
 
+    @Override
     public void addTask(Task task){
         tasks.add(task);
         if(task.getId() >= nextId){
@@ -16,11 +19,13 @@ public class TaskManager {
         }
     }
 
+    @Override
     public void addTask(String title, String description, int priority){
         Task task = new Task(nextId, title,description, priority);
         tasks.add(task);
         nextId++;
     }
+    @Override
     public void listTask(){
         if (isEmptyAndPrintMessage()) return;
         for(Task task : tasks){
@@ -29,6 +34,7 @@ public class TaskManager {
             );
         }
     }
+    @Override
     public void listCompletedTasks(){
         if (isEmptyAndPrintMessage()) return;
         boolean hasCompleted = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
@@ -46,6 +52,7 @@ public class TaskManager {
         }
     }
 
+    @Override
     public void listPendingTasks(){
         if (isEmptyAndPrintMessage()) return;
         boolean hasPending = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.PENDING);
@@ -69,6 +76,7 @@ public class TaskManager {
         return null;
     }
 
+    @Override
     public void updateTask(int id, String newTitle,String newDescription){
         Task task = findTaskById(id);
         if(task != null){
@@ -79,6 +87,7 @@ public class TaskManager {
             System.out.println("Task not found");
         }
     }
+    @Override
     public void updateTaskPriority(int id, int newPriority){
         Task task = findTaskById(id);
         if(task != null){
@@ -89,6 +98,7 @@ public class TaskManager {
         }
     }
 
+    @Override
     public void markTaskAsCompleted(int id){
         Task task = findTaskById(id);
         if(task != null){
@@ -99,6 +109,7 @@ public class TaskManager {
         }
     }
 
+    @Override
     public void markTaskAsInProgress(int id){
         Task task = findTaskById(id);
         if(task != null){
@@ -108,6 +119,7 @@ public class TaskManager {
             System.out.println("Task not found");
         }
     }
+    @Override
     public void deleteTaskById(int id){
         boolean found = false;
         for(int i=0; i<tasks.size(); i++){
@@ -137,6 +149,7 @@ public class TaskManager {
             return "Low priority";
         }
     }
+    @Override
     public void listTasksByPriority(){
 
         if(isEmptyAndPrintMessage()) return;
@@ -185,6 +198,7 @@ public class TaskManager {
             System.out.println("No completed tasks found");
         }
     }
+    @Override
     public void searchTasks(String keyword){
         boolean found = false;
         System.out.println("=== SEARCH RESULTS ===");
@@ -200,6 +214,7 @@ public class TaskManager {
             System.out.println("No tasks found");
         }
     }
+    @Override
     public void listTasksSortedByPriority(){
         if(tasks.isEmpty()){
             System.out.println("No tasks available");
@@ -223,6 +238,7 @@ public class TaskManager {
         }
         return false;
     }
+    @Override
     public void listHighPriorityTasks(){
         if(isEmptyAndPrintMessage())return;
 
