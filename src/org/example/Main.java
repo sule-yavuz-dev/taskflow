@@ -141,7 +141,11 @@ public class Main {
             }
             System.out.println("Description cannot be empty. Try again.");
         }
-        manager.updateTask(updateId, newTitle, newDescription);
+        try {
+            manager.updateTask(updateId, newTitle, newDescription);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
     private static void handleUpdatePriority(Scanner scanner, TaskService manager) {
        int id = readInt(
@@ -151,8 +155,11 @@ public class Main {
        );
 
         int newPriority = readPriority(scanner);
-        manager.updateTaskPriority(id, newPriority);
-
+        try {
+            manager.updateTaskPriority(id, newPriority);
+        }catch(TaskNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
     private static void handleMarkAsCompleted(Scanner scanner, TaskService manager) {
         int completedId = readInt(
@@ -160,16 +167,23 @@ public class Main {
                 "Enter task id to mark as completed:",
                 "Invalid input. Please enter a valid task id."
         );
-        manager.markTaskAsCompleted(completedId);
+        try {
+            manager.markTaskAsCompleted(completedId);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
-
     private static void handleMarkAsInProgress(Scanner scanner, TaskService manager) {
-        int progressId  = readInt(
+        int progressId = readInt(
                 scanner,
                 "Enter task id to mark as IN_PROGRESS:",
                 "Invalid input. Please enter a valid task id."
         );
-        manager.markTaskAsInProgress(progressId);
+        try {
+            manager.markTaskAsInProgress(progressId);
+        } catch (TaskNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
     private static void handleSearch(Scanner scanner, TaskService manager){
         String keyword = readNonEmptyString(
