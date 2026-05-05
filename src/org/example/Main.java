@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        TaskService manager = new TaskManager();
+        TaskService manager =  TaskManager.getInstance();
 
         Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
         Task task2 = new Task(2, "Go to gym", "Workout for 1 hour", 3);
