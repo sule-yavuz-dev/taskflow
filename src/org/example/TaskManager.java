@@ -246,5 +246,9 @@ public class TaskManager implements TaskService {
             }
         }
     }
+    @Override
+    public List<Task> getAllTasks(){
+        return tasks;
+    }
 
 }

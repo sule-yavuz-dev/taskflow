@@ -2,6 +2,8 @@ package org.example.service;
 
 import org.example.Task;
 
+import java.util.List;
+
 public interface TaskService {
     void addTask(Task task);
     void  addTask(String title, String description, int priority);
@@ -18,4 +20,5 @@ public interface TaskService {
     void listTasksSortedByPriority();
     void listHighPriorityTasks();
 
+    List<Task> getAllTasks();
 }
