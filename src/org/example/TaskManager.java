@@ -2,11 +2,13 @@ package org.example;
 
 import org.example.exception.TaskNotFoundException;
 import org.example.service.TaskService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+@Service
 public class TaskManager implements TaskService {
 
     private static final TaskManager INSTANCE = new TaskManager();
