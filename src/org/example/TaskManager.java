@@ -11,18 +11,9 @@ import java.util.List;
 @Service
 public class TaskManager implements TaskService {
 
-    private static final TaskManager INSTANCE = new TaskManager();
-
     private List<Task> tasks = new ArrayList<>();
     private int nextId =1;
 
-    private TaskManager(){
-
-    }
-
-    public static TaskManager getInstance(){
-        return INSTANCE;
-    }
 
     @Override
     public void addTask(Task task){

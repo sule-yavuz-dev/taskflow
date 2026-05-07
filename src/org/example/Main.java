@@ -1,14 +1,19 @@
 package org.example;
 import org.example.exception.TaskNotFoundException;
 import org.example.service.TaskService;
+import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        TaskService manager =  TaskManager.getInstance();
+        ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class).web(WebApplicationType.NONE).profiles("console").run(args);
 
+        Scanner scanner = new Scanner(System.in);
+        TaskService manager = context.getBean(TaskService.class);
         Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
         Task task2 = new Task(2, "Go to gym", "Workout for 1 hour", 3);
         Task task3 = new Task(3, "Review pull request", "Check code changes and leave comments", 1);
