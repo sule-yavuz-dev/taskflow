@@ -21,4 +21,6 @@ public interface TaskService {
     void listHighPriorityTasks();
 
     List<Task> getAllTasks();
+
+    Task getTaskById(int id);
 }

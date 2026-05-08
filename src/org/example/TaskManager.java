@@ -242,4 +242,7 @@ public class TaskManager implements TaskService {
         return tasks;
     }
 
+    public Task getTaskById(int id){
+        return tasks.stream().filter(task ->task.getId() == id).findFirst().orElseThrow(()-> new TaskNotFoundException("Task not found with id: " + id));
+    }
 }
