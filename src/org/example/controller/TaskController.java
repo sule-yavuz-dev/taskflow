@@ -35,4 +35,14 @@ public class TaskController {
     public Task getTaskById(@PathVariable int id){
         return taskService.getTaskById(id);
     }
+
+    @DeleteMapping("/tasks/{id}")
+    public void deleteTask(@PathVariable int id){
+        taskService.deleteTaskById(id);
+    }
+
+    @PutMapping("/tasks/{id}")
+    public void updateTask(@PathVariable int id, @RequestBody Task updatedTask){
+        taskService.updateTask(id, updatedTask);
+    }
 }

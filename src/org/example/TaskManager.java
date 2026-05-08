@@ -90,6 +90,15 @@ public class TaskManager implements TaskService {
         }
 
     @Override
+    public void updateTask(int id, Task updatedTask) {
+        Task task = findTaskById(id);
+
+        task.setTitle(updatedTask.getTitle());
+        task.setDescription(updatedTask.getDescription());
+        task.setPriority(updatedTask.getPriority());
+    }
+
+    @Override
     public void updateTaskPriority(int id, int newPriority) {
         Task task = findTaskById(id);
 
