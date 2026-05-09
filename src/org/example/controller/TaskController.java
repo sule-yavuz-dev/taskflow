@@ -1,4 +1,5 @@
 package org.example.controller;
+import jakarta.validation.Valid;
 import org.example.dto.TaskRequest;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public void addTask(@RequestBody TaskRequest request){
+    public void addTask(@Valid @RequestBody TaskRequest request){
         taskService.addTask(request.getTitle(),request.getDescription(), request.getPriority());
     }
 
@@ -43,7 +44,7 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public void updateTask(@PathVariable int id, @RequestBody TaskRequest request){
+    public void updateTask(@PathVariable int id,@Valid @RequestBody TaskRequest request){
         taskService.updateTask(id, request.getTitle(),request.getDescription());
         taskService.updateTaskPriority(id,request.getPriority());
     }

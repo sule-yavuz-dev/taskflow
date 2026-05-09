@@ -1,9 +1,22 @@
 package org.example.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class TaskRequest {
+
+    @NotBlank(message = "Title cannot be blank")
     private String title;
+
+    @NotBlank(message = "Description cannot be blank")
     private String description;
-    private int priority;
+
+    @NotNull(message = "Priority is required")
+    @Min(value =  1, message = "Priority must be at least 1")
+    @Max(value = 5, message = "Priority cannot be greater than 5")
+    private Integer priority;
 
     public String getTitle() {
         return title;
@@ -21,11 +34,11 @@ public class TaskRequest {
         this.description = description;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 }
