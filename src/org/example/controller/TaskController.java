@@ -1,4 +1,5 @@
 package org.example.controller;
+import org.example.dto.TaskRequest;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +28,8 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public void addTask(@RequestBody Task task){
-        taskService.addTask(task);
+    public void addTask(@RequestBody TaskRequest request){
+        taskService.addTask(request.getTitle(),request.getDescription(), request.getPriority());
     }
 
     @GetMapping("/tasks/{id}")
@@ -42,7 +43,8 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public void updateTask(@PathVariable int id, @RequestBody Task updatedTask){
-        taskService.updateTask(id, updatedTask);
+    public void updateTask(@PathVariable int id, @RequestBody TaskRequest request){
+        taskService.updateTask(id, request.getTitle(),request.getDescription());
+        taskService.updateTaskPriority(id,request.getPriority());
     }
 }
