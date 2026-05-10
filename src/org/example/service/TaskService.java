@@ -7,12 +7,12 @@ import java.util.List;
 public interface TaskService {
     void addTask(Task task);
     void addTask(String title, String description, int priority);
-    void deleteTaskById(int id);
-    void updateTask(int id, String newTitle, String newDescription);
-    void updateTask(int id, Task updatedTask);
-    void updateTaskPriority(int id, int newPriority);
-    void markTaskAsCompleted(int id);
-    void markTaskAsInProgress(int id);
+    void deleteTaskById(Long id);
+    void updateTask(Long id, String newTitle, String newDescription);
+    void updateTask(Long id, Task updatedTask);
+    void updateTaskPriority(Long id, int newPriority);
+    void markTaskAsCompleted(Long id);
+    void markTaskAsInProgress(Long id);
     void listTask();
     void listCompletedTasks();
     void listPendingTasks();
@@ -24,6 +24,6 @@ public interface TaskService {
 
     List<Task> getAllTasks();
 
-    Task getTaskById(int id);
+    Task getTaskById(Long id);
 
 }

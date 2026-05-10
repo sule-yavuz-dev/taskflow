@@ -1,22 +1,30 @@
 package org.example;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Task {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String description;
     private int priority;
+    @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    public Task(){
 
-    public Task(int id, String title, String description, int priority) {
-        this.id = id;
+    }
+    public Task(String title, String description,int priority) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = TaskStatus.PENDING;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

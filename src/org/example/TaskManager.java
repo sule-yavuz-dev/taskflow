@@ -11,28 +11,27 @@ import java.util.List;
 @Service
 public class TaskManager implements TaskService {
 
-    private List<Task> tasks = new ArrayList<>();
-    private int nextId =1;
+    private final TaskRepository taskRepository;
 
+    public TaskManager(TaskRepository taskRepository){
+        this.taskRepository = taskRepository;
+    }
 
     @Override
     public void addTask(Task task){
-        tasks.add(task);
-        if(task.getId() >= nextId){
-            nextId  = task.getId() + 1;
-        }
+        taskRepository.save(task);
     }
 
     @Override
     public void addTask(String title, String description, int priority){
-        Task task = new Task(nextId, title,description, priority);
-        tasks.add(task);
-        nextId++;
+        Task task = new Task(title, description, priority);
+        taskRepository.save(task);
     }
     @Override
     public void listTask(){
         if (isEmptyAndPrintMessage()) return;
-        for(Task task : tasks){
+        List<Task> allTasks = taskRepository.findAll();
+        for(Task task : allTasks){
             System.out.println(
                     task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - " + getPriorityLabel(task)+" - "+ task.getStatus()
             );
@@ -41,13 +40,17 @@ public class TaskManager implements TaskService {
     @Override
     public void listCompletedTasks(){
         if (isEmptyAndPrintMessage()) return;
-        boolean hasCompleted = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
+
+        List<Task> allTasks = taskRepository.findAll();
+
+        boolean hasCompleted = allTasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.COMPLETED);
 
         if (!hasCompleted) {
             System.out.println("No completed tasks found");
             return;
         }
-        for(Task task : tasks){
+
+        for(Task task : allTasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
                 System.out.println(
                         task.getId() + " - " + task.getTitle() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus()
@@ -59,73 +62,73 @@ public class TaskManager implements TaskService {
     @Override
     public void listPendingTasks(){
         if (isEmptyAndPrintMessage()) return;
-        boolean hasPending = tasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.PENDING);
+
+        List<Task> allTasks = taskRepository.findAll();
+
+        boolean hasPending = allTasks.stream().anyMatch(task -> task.getStatus() == TaskStatus.PENDING);
 
         if(!hasPending){
             System.out.println("No pending tasks found");
             return;
         }
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() == TaskStatus.PENDING){
                 System.out.println(task.getId() + " - " + task.getTitle() + " - " + task.getDescription() + " - "+ getPriorityLabel(task)+" - "+ task.getStatus());
             }
         }
     }
-    public Task findTaskById(int id){
-        for(Task task : tasks){
-            if(task.getId() == id){
-                return task;
-            }
-        }
-        throw new TaskNotFoundException("Task not found with id: "+ id);
-    }
 
     @Override
-    public void updateTask(int id, String newTitle,String newDescription){
-        Task task = findTaskById(id);
+    public void updateTask(Long id, String newTitle,String newDescription){
+        Task task = getTaskById(id);
 
             task.setTitle(newTitle);
             task.setDescription(newDescription);
+            taskRepository.save(task);
             System.out.println("Task updated successfully");
         }
 
     @Override
-    public void updateTask(int id, Task updatedTask) {
-        Task task = findTaskById(id);
-
+    public void updateTask(Long id, Task updatedTask) {
+        Task task = getTaskById(id);
         task.setTitle(updatedTask.getTitle());
         task.setDescription(updatedTask.getDescription());
         task.setPriority(updatedTask.getPriority());
+
+        taskRepository.save(task);
     }
 
     @Override
-    public void updateTaskPriority(int id, int newPriority) {
-        Task task = findTaskById(id);
+    public void updateTaskPriority(Long id, int newPriority) {
+        Task task = getTaskById(id);
 
         task.setPriority(newPriority);
+        taskRepository.save(task);
         System.out.println("Task priority updated successfully");
     }
 
     @Override
-    public void markTaskAsCompleted(int id){
-        Task task = findTaskById(id);
+    public void markTaskAsCompleted(Long id){
+        Task task = getTaskById(id);
 
             task.markAsCompleted();
+            taskRepository.save(task);
             System.out.println("Task marked as completed");
 
     }
 
     @Override
-    public void markTaskAsInProgress(int id){
-        Task task = findTaskById(id);
+    public void markTaskAsInProgress(Long id){
+        Task task = getTaskById(id);
 
             task.markAsInProgress();
+            taskRepository.save(task);
             System.out.println("Task marked as IN_PROGRESS");
     }
     @Override
-    public void deleteTaskById(int id){
-            Task task = findTaskById(id);
-            tasks.remove(task);
+    public void deleteTaskById(Long id){
+            Task task = getTaskById(id);
+            taskRepository.delete(task);
             System.out.println("Task deleted successfully");
     }
     private String getPriorityLabel(Task task){
@@ -145,9 +148,11 @@ public class TaskManager implements TaskService {
     public void listTasksByPriority(){
 
         if(isEmptyAndPrintMessage()) return;
+
+        List<Task> allTasks = taskRepository.findAll();
         System.out.println("=== HIGH PRIORITY ===");
         boolean foundHigh = false;
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() != TaskStatus.COMPLETED && (task.getPriority() == 1 || task.getPriority() == 2)){
                 System.out.println(task.getId() + " - " + task.getTitle());
                 foundHigh = true;
@@ -158,7 +163,7 @@ public class TaskManager implements TaskService {
         }
         System.out.println("\n=== MEDIUM PRIORITY ===");
         boolean foundMedium = false;
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() != TaskStatus.COMPLETED && task.getPriority() ==3){
                 System.out.println(task.getId() + " - " + task.getTitle());
                 foundMedium = true;
@@ -169,7 +174,7 @@ public class TaskManager implements TaskService {
         }
         System.out.println("\n=== LOW PRIORITY ===");
         boolean foundLow = false;
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() != TaskStatus.COMPLETED && task.getPriority() > 3){
                 System.out.println(task.getId() + " - " + task.getTitle());
                 foundLow = true;
@@ -180,7 +185,7 @@ public class TaskManager implements TaskService {
         }
         System.out.println("\n=== COMPLETED ===");
         boolean foundCompleted = false;
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() == TaskStatus.COMPLETED){
                 System.out.println(task.getId()+ " - " + task.getTitle());
                 foundCompleted = true;
@@ -195,7 +200,8 @@ public class TaskManager implements TaskService {
         boolean found = false;
         System.out.println("=== SEARCH RESULTS ===");
         String searchKey = keyword.toLowerCase();
-        for(Task task : tasks){
+        List<Task> allTasks = taskRepository.findAll();
+        for(Task task : allTasks){
             if(task. getTitle().toLowerCase().contains(searchKey) || task.getDescription().toLowerCase().contains(searchKey)){
                 System.out.println(task.getId()+ " - "+ task.getTitle()+ " - " + task.getDescription()+ " - "+getPriorityLabel(task) + " - "+task.getStatus()
                 );
@@ -208,11 +214,11 @@ public class TaskManager implements TaskService {
     }
     @Override
     public void listTasksSortedByPriority(){
-        if(tasks.isEmpty()){
+        if(taskRepository.count() == 0){
             System.out.println("No tasks available");
             return;
         }
-        List<Task> sortedTasks = new ArrayList<>(tasks);
+        List<Task> sortedTasks = new ArrayList<>(taskRepository.findAll());
 
         sortedTasks.sort(Comparator.comparing((Task t) -> t.getStatus() == TaskStatus.COMPLETED).thenComparingInt(Task::getPriority));
 
@@ -224,7 +230,7 @@ public class TaskManager implements TaskService {
 
     }
     private boolean isEmptyAndPrintMessage(){
-        if(tasks.isEmpty()){
+        if(taskRepository.count() == 0){
             System.out.println("No tasks available");
             return true;
         }
@@ -234,13 +240,14 @@ public class TaskManager implements TaskService {
     public void listHighPriorityTasks(){
         if(isEmptyAndPrintMessage())return;
 
-        boolean hasHighPriority = tasks.stream().anyMatch(task -> task.getStatus() != TaskStatus.COMPLETED &&(task.getPriority() == 1 || task.getPriority() ==2));
+        List<Task> allTasks = taskRepository.findAll();
+        boolean hasHighPriority = allTasks.stream().anyMatch(task -> task.getStatus() != TaskStatus.COMPLETED &&(task.getPriority() == 1 || task.getPriority() ==2));
 
         if(!hasHighPriority){
             System.out.println("No high priority tasks found");
             return;
         }
-        for(Task task : tasks){
+        for(Task task : allTasks){
             if(task.getStatus() != TaskStatus.COMPLETED &&(task.getPriority() == 1 || task.getPriority() == 2)){
                 System.out.println(task.getId()+" - "+ task.getTitle()+ " - " + task.getDescription()+" - "+getPriorityLabel(task)+ " - " +task.getStatus());
             }
@@ -248,10 +255,11 @@ public class TaskManager implements TaskService {
     }
     @Override
     public List<Task> getAllTasks(){
-        return tasks;
+
+        return taskRepository.findAll();
     }
 
-    public Task getTaskById(int id){
-        return tasks.stream().filter(task ->task.getId() == id).findFirst().orElseThrow(()-> new TaskNotFoundException("Task not found with id: " + id));
+    public Task getTaskById(Long id){
+        return taskRepository.findById(id).orElseThrow(()-> new TaskNotFoundException("Task not found with id: " + id));
     }
 }

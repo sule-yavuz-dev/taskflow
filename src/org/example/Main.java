@@ -14,13 +14,13 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         TaskService manager = context.getBean(TaskService.class);
-        Task task1 = new Task(1, "Learn Java", "Study OOP concepts", 2);
-        Task task2 = new Task(2, "Go to gym", "Workout for 1 hour", 3);
-        Task task3 = new Task(3, "Review pull request", "Check code changes and leave comments", 1);
-        Task task4 = new Task(4, "Write unit tests", "Cover TaskManager methods with basic tests",2);
-        Task task5 = new Task(5,"Fix login bug","Resolve invalid input issue on login screen",1);
-        Task task6 = new Task(6, "Update documentation","Improve README and usage instructions", 4);
-        Task task7 = new Task(7, "Prepare release notes", "Summarize completed changes for release", 5);
+        Task task1 = new Task("Learn Java", "Study OOP concepts", 2);
+        Task task2 = new Task("Go to gym", "Workout for 1 hour", 3);
+        Task task3 = new Task("Review pull request", "Check code changes and leave comments", 1);
+        Task task4 = new Task("Write unit tests", "Cover TaskManager methods with basic tests",2);
+        Task task5 = new Task("Fix login bug","Resolve invalid input issue on login screen",1);
+        Task task6 = new Task("Update documentation","Improve README and usage instructions", 4);
+        Task task7 = new Task("Prepare release notes", "Summarize completed changes for release", 5);
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(task3);
@@ -113,7 +113,7 @@ public class Main {
                 "Invalid input. Please enter a valid task id."
         );
         try {
-            manager.deleteTaskById(deleteId);
+            manager.deleteTaskById((long)deleteId);
         } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -147,7 +147,7 @@ public class Main {
             System.out.println("Description cannot be empty. Try again.");
         }
         try {
-            manager.updateTask(updateId, newTitle, newDescription);
+            manager.updateTask((long) updateId, newTitle, newDescription);
         } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -161,7 +161,7 @@ public class Main {
 
         int newPriority = readPriority(scanner);
         try {
-            manager.updateTaskPriority(id, newPriority);
+            manager.updateTaskPriority((long) id, newPriority);
         }catch(TaskNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -173,7 +173,7 @@ public class Main {
                 "Invalid input. Please enter a valid task id."
         );
         try {
-            manager.markTaskAsCompleted(completedId);
+            manager.markTaskAsCompleted((long) completedId);
         } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -185,7 +185,7 @@ public class Main {
                 "Invalid input. Please enter a valid task id."
         );
         try {
-            manager.markTaskAsInProgress(progressId);
+            manager.markTaskAsInProgress((long) progressId);
         } catch (TaskNotFoundException e) {
             System.out.println(e.getMessage());
         }
