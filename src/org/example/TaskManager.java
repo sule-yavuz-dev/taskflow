@@ -23,9 +23,9 @@ public class TaskManager implements TaskService {
     }
 
     @Override
-    public void addTask(String title, String description, int priority){
+    public Task addTask(String title, String description, int priority){
         Task task = new Task(title, description, priority);
-        taskRepository.save(task);
+        return taskRepository.save(task);
     }
     @Override
     public void listTask(){
@@ -261,5 +261,10 @@ public class TaskManager implements TaskService {
 
     public Task getTaskById(Long id){
         return taskRepository.findById(id).orElseThrow(()-> new TaskNotFoundException("Task not found with id: " + id));
+    }
+
+    @Override
+    public List<Task> getTasksByStatus(TaskStatus status){
+        return taskRepository.findByStatus(status);
     }
 }

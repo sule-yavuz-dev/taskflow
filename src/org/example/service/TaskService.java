@@ -1,12 +1,13 @@
 package org.example.service;
 
 import org.example.Task;
+import org.example.TaskStatus;
 
 import java.util.List;
 
 public interface TaskService {
     void addTask(Task task);
-    void addTask(String title, String description, int priority);
+    Task addTask(String title, String description, int priority);
     void deleteTaskById(Long id);
     void updateTask(Long id, String newTitle, String newDescription);
     void updateTask(Long id, Task updatedTask);
@@ -26,4 +27,5 @@ public interface TaskService {
 
     Task getTaskById(Long id);
 
+    List<Task> getTasksByStatus(TaskStatus status);
 }

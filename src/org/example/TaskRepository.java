@@ -1,6 +1,9 @@
 package org.example;
 
+import java.util.List;
+import org.example.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Long>{
+    List<Task> findByStatus(TaskStatus status);
 }

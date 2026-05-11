@@ -1,8 +1,11 @@
 package org.example.controller;
 import jakarta.validation.Valid;
+import org.example.TaskStatus;
 import org.example.dto.TaskRequest;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +32,27 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public void addTask(@Valid @RequestBody TaskRequest request){
-        taskService.addTask(request.getTitle(),request.getDescription(), request.getPriority());
+    public ResponseEntity<Task> addTask(@Valid @RequestBody TaskRequest request){
+        Task savedTask = taskService.addTask(request.getTitle(),request.getDescription(), request.getPriority());
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
+
 
     @GetMapping("/tasks/{id}")
     public Task getTaskById(@PathVariable Long id){
         return taskService.getTaskById(id);
     }
 
+    @GetMapping("/tasks/status/{status}")
+    public List<Task> getTasksByStatus(@PathVariable TaskStatus status){
+        return taskService.getTasksByStatus(status);
+    }
+
+
     @DeleteMapping("/tasks/{id}")
-    public void deleteTask(@PathVariable Long id){
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id){
         taskService.deleteTaskById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/tasks/{id}")
