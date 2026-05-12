@@ -28,4 +28,5 @@ public interface TaskService {
     Task getTaskById(Long id);
 
     List<Task> getTasksByStatus(TaskStatus status);
+    List<Task> getTasksByPriority(int priority);
 }

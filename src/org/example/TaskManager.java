@@ -267,4 +267,9 @@ public class TaskManager implements TaskService {
     public List<Task> getTasksByStatus(TaskStatus status){
         return taskRepository.findByStatus(status);
     }
+
+    @Override
+    public List<Task> getTasksByPriority(int priority){
+        return taskRepository.findByPriority(priority);
+    }
 }
