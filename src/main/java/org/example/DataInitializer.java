@@ -17,6 +17,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args){
+        if(!taskService.getAllTasks().isEmpty()){
+            return;
+        }
         taskService.addTask("Learn Spring Boot", "Create first REST endpoint",1);
         taskService.addTask("Practice REST API","Test GET endpoint in browser",2);
         taskService.addTask("Prepare portfolio","Push project changes to GitHub",3);

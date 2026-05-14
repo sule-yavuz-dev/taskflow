@@ -1,27 +1,74 @@
 # TaskFlow
 
-TaskFlow is a console-based task management application built with Java.
-It allows users to manage tasks efficiently by adding, updating, deleting, filtering and sorting tasks.
+TaskFlow is a task management backend application built with Java and Spring Boot.
 
+The project started as a console-based Java application 
+and evolved into a RESTful backend API with PostgreSQL persistence, 
+Swagger documentation, validation, exception handling, and automated testing.
 
 ## Features
-- Add new task
-- Update task title and description
-- Delete tasks
-- Mark tasks as **Completed** or **In Progress**
+- Create tasks
 - List all tasks
-- Filter tasks by status (Completed / Pending)
-- Filter tasks by priority (High / Medium / Low)
-- Sort tasks by priority
-- Search tasks by keyword
-- List only high-priority tasks
+- Get task by ID
+- Update tasks
+- Delete tasks
+- Filter tasks by status 
+- Filter tasks by priority
+- PostgreSQL persistence
+- Swagger/OpenAPI documentation
+- Global exception handling
+- Request validation
 
 ## Technologies
 - Java 17
-- Object-Oriented Programming
-- Console-based UI (Scanner)
-- Clean Code principles
-- 
+- Spring Boot
+- Hibernate
+- PostgreSQL
+- H2 Database
+- Maven
+- Swagger / OpenAPI
+- JUnit 5
+- Mockito
+- MockMvc
+- Git / GitHub
+
+## Swagger API Preview
+
+### Create Task Request
+
+![Create Task](images/post-task.png)
+
+---
+
+### Get Task By ID
+
+![Get Task](images/get-task.png)
+
+---
+
+### PostgreSQL Persistence Test
+
+The task remains stored even after restarting the Spring Boot application.
+
+![Persistence Test](images/persistence-test.png)
+
+---
+
+## Swagger UI
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+## Persistence
+
+TaskFlow uses PostgreSQL for persistent data storage.
+
+Data remains available even after restarting the Spring Boot application.
+
+---
+
 ## How to Run
 1. Clone the repository:
 ```
@@ -29,18 +76,33 @@ git clone https://github.com/sule-yavuz-dev/taskflow.git
 ```
 2. Open the project in IntelliJ IDEA 
 
-3. Run the `Main` class
-
-## Example Output
+3. Create a local `application.properties` file inside:
+```text
+src/main/resources/application.properties
 ```
-1 - Learn Java - Study OOP concepts - High priority - IN_PROGRESS 
-2 - Fix bug - Resolve login issue - Medium priority - PENDING 
-3 - Write tests - Add unit tests - No active priority - COMPLETED
-```
-## Notes
-This project is the foundation for a full-stack task management application.
-Future improvements will include:
 
-- Database integration (JDBC / JPA)
-- REST API with Spring Boot
-- Frontend interface (React)
+4. Add your PostgreSQL configuration:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/taskflow_db
+spring.datasource.username=postgres
+spring.datasource.password=YOUR_PASSWORD
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
+
+5. Run the `Application` class
+
+6. Open Swagger UI:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
+---
+
+## Future Goal
+The next step of the project is transforming TaskFlow 
+into a complete full-stack task management application.
