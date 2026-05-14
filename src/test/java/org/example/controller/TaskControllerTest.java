@@ -8,14 +8,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.mockito.Mockito.when;
-
+import static org.mockito.Mockito.doThrow;
 import org.springframework.http.MediaType;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(TaskController.class)
 class TaskControllerTest {
@@ -71,5 +68,16 @@ class TaskControllerTest {
                 }
                 """;
         mockMvc.perform(post("/tasks").contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void deleteTaskReturnsNoContent() throws Exception{
+        mockMvc.perform(delete("/tasks/1")).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void deleteMissingTaskReturnsNotFound() throws Exception{
+        doThrow(new TaskNotFoundException("Task not found with id: 999")).when(taskService).deleteTaskById(999L);
+        mockMvc.perform(delete("/tasks/999")).andExpect(status().isNotFound());
     }
 }
