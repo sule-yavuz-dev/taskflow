@@ -19,6 +19,7 @@ public interface TaskService {
     void listPendingTasks();
     void listTasksByPriority();
     void searchTasks(String keyword);
+    List<Task> searchTaskForApi(String keyword);
     void listTasksSortedByPriority();
     void listHighPriorityTasks();
 
@@ -29,4 +30,6 @@ public interface TaskService {
 
     List<Task> getTasksByStatus(TaskStatus status);
     List<Task> getTasksByPriority(int priority);
+
+
 }

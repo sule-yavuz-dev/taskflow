@@ -80,4 +80,9 @@ class TaskControllerTest {
         doThrow(new TaskNotFoundException("Task not found with id: 999")).when(taskService).deleteTaskById(999L);
         mockMvc.perform(delete("/tasks/999")).andExpect(status().isNotFound());
     }
+
+    @Test
+    void searchTasksReturnsOk() throws Exception{
+        mockMvc.perform(get("/tasks/search").param("keyword","gym")).andExpect(status().isOk());
+    }
 }

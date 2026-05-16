@@ -53,6 +53,10 @@ public class TaskController {
         return taskService.getTasksByPriority(priority);
     }
 
+    @GetMapping("/tasks/search")
+    public List<Task> searchTasks(@RequestParam String keyword){
+        return taskService.searchTaskForApi(keyword);
+    }
 
     @DeleteMapping("/tasks/{id}")
     public ResponseEntity<Void> deleteTask(@PathVariable Long id){
@@ -65,4 +69,5 @@ public class TaskController {
         taskService.updateTask(id, request.getTitle(),request.getDescription());
         taskService.updateTaskPriority(id,request.getPriority());
     }
+
 }

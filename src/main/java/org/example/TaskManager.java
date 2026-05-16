@@ -272,4 +272,9 @@ public class TaskManager implements TaskService {
     public List<Task> getTasksByPriority(int priority){
         return taskRepository.findByPriority(priority);
     }
+
+    @Override
+    public List<Task> searchTaskForApi(String keyword){
+        return taskRepository.findByTitleContainingOrDescriptionContaining(keyword,keyword);
+    }
 }
