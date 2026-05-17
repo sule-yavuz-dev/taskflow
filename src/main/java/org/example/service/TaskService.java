@@ -5,6 +5,9 @@ import org.example.TaskStatus;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface TaskService {
     void addTask(Task task);
     Task addTask(String title, String description, int priority);
@@ -32,4 +35,5 @@ public interface TaskService {
     List<Task> getTasksByPriority(int priority);
 
 
+    Page<Task> getTasksWithPagination(Pageable pageable);
 }

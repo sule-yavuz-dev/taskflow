@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 public class TaskManager implements TaskService {
 
@@ -276,5 +279,10 @@ public class TaskManager implements TaskService {
     @Override
     public List<Task> searchTaskForApi(String keyword){
         return taskRepository.findByTitleContainingOrDescriptionContaining(keyword,keyword);
+    }
+
+    @Override
+    public Page<Task> getTasksWithPagination(Pageable pageable){
+        return taskRepository.findAll(pageable);
     }
 }

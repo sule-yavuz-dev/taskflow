@@ -3,8 +3,10 @@ package org.example.controller;
 import org.example.exception.TaskNotFoundException;
 import org.example.service.TaskService;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -16,6 +18,8 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.doThrow;
 import org.springframework.http.MediaType;
 import org.example.Task;
+import java.util.List;
+
 @WebMvcTest(TaskController.class)
 class TaskControllerTest {
     @Autowired
@@ -26,6 +30,8 @@ class TaskControllerTest {
 
     @Test
     void getTasksReturnsOk() throws Exception {
+        Task task = new Task("Test Task", "Test Description",1);
+        when(taskService.getTasksWithPagination(ArgumentMatchers.any())).thenReturn(new PageImpl<>(List.of(task)));
         mockMvc.perform(get("/tasks")).andExpect(status().isOk());
     }
 

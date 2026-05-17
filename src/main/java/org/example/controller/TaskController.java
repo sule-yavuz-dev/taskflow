@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import org.example.Task;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 public class TaskController {
@@ -28,8 +31,10 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public List<TaskResponse> getTasks(){
-        return taskService.getAllTasks().stream().map(this::toTaskResponse).toList();
+    public Page<TaskResponse> getTasks( @RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "5") int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return taskService.getTasksWithPagination(pageable).map(this::toTaskResponse);
     }
 
     @PostMapping("/tasks")
