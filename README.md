@@ -24,7 +24,6 @@ Swagger documentation, validation, exception handling, and automated testing.
 - Spring Boot
 - Hibernate
 - PostgreSQL
-- H2 Database
 - Maven
 - Swagger / OpenAPI
 - JUnit 5
@@ -56,7 +55,7 @@ The task remains stored even after restarting the Spring Boot application.
 
 ## Swagger UI
 ```text
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8081/swagger-ui/index.html
 ```
 
 ---
@@ -98,7 +97,7 @@ spring.jpa.show-sql=true
 6. Open Swagger UI:
 
 ```text
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8081/swagger-ui/index.html
 ```
 
 ---

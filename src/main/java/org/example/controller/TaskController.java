@@ -5,6 +5,7 @@ import org.example.dto.TaskRequest;
 import org.example.dto.TaskResponse;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,8 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public Page<TaskResponse> getTasks( @RequestParam(defaultValue = "0") int page,
-                                        @RequestParam(defaultValue = "5") int size){
-        Pageable pageable = PageRequest.of(page, size);
+                                        @RequestParam(defaultValue = "5") int size,@RequestParam(defaultValue = "id") String sortBy){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return taskService.getTasksWithPagination(pageable).map(this::toTaskResponse);
     }
 
