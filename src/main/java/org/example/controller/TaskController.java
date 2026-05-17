@@ -2,6 +2,7 @@ package org.example.controller;
 import jakarta.validation.Valid;
 import org.example.TaskStatus;
 import org.example.dto.TaskRequest;
+import org.example.dto.TaskResponse;
 import org.example.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,35 +28,36 @@ public class TaskController {
     }
 
     @GetMapping("/tasks")
-    public List<Task> getTasks(){
-        return taskService.getAllTasks();
+    public List<TaskResponse> getTasks(){
+        return taskService.getAllTasks().stream().map(this::toTaskResponse).toList();
     }
 
     @PostMapping("/tasks")
-    public ResponseEntity<Task> addTask(@Valid @RequestBody TaskRequest request){
+    public ResponseEntity<TaskResponse> addTask(@Valid @RequestBody TaskRequest request){
         Task savedTask = taskService.addTask(request.getTitle(),request.getDescription(), request.getPriority());
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
+        return ResponseEntity.status(HttpStatus.CREATED).body(toTaskResponse(savedTask));
     }
 
 
     @GetMapping("/tasks/{id}")
-    public Task getTaskById(@PathVariable Long id){
-        return taskService.getTaskById(id);
+    public TaskResponse getTaskById(@PathVariable Long id){
+        Task task = taskService.getTaskById(id);
+        return toTaskResponse(task);
     }
 
     @GetMapping("/tasks/status/{status}")
-    public List<Task> getTasksByStatus(@PathVariable TaskStatus status){
-        return taskService.getTasksByStatus(status);
+    public List<TaskResponse> getTasksByStatus(@PathVariable TaskStatus status){
+        return taskService.getTasksByStatus(status).stream().map(this::toTaskResponse).toList();
     }
 
     @GetMapping("/tasks/priority/{priority}")
-    public List<Task> getTaskByPriority(@PathVariable int priority){
-        return taskService.getTasksByPriority(priority);
+    public List<TaskResponse> getTaskByPriority(@PathVariable int priority){
+        return taskService.getTasksByPriority(priority).stream().map(this::toTaskResponse).toList();
     }
 
     @GetMapping("/tasks/search")
-    public List<Task> searchTasks(@RequestParam String keyword){
-        return taskService.searchTaskForApi(keyword);
+    public List<TaskResponse> searchTasks(@RequestParam String keyword){
+        return taskService.searchTaskForApi(keyword).stream().map(this::toTaskResponse).toList();
     }
 
     @DeleteMapping("/tasks/{id}")
@@ -70,4 +72,10 @@ public class TaskController {
         taskService.updateTaskPriority(id,request.getPriority());
     }
 
+
+    private TaskResponse toTaskResponse(Task task){
+        return new TaskResponse(
+                task.getId(),task.getTitle(),task.getDescription(),task.getPriority(),task.getStatus()
+        );
+    }
 }
