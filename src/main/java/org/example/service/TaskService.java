@@ -13,7 +13,7 @@ public interface TaskService {
     Task addTask(String title, String description, int priority);
     void deleteTaskById(Long id);
     void updateTask(Long id, String newTitle, String newDescription);
-    void updateTask(Long id, Task updatedTask);
+    Task updateTask(Long id, Task updatedTask);
     void updateTaskPriority(Long id, int newPriority);
     void markTaskAsCompleted(Long id);
     void markTaskAsInProgress(Long id);

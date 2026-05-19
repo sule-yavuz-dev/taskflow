@@ -50,6 +50,8 @@ class TaskControllerTest {
                 "priority":2
                 }
                 """;
+        Task updatedTask = new Task("Updated Task", "Updated description", 2);
+        when(taskService.updateTask(ArgumentMatchers.eq(1L), ArgumentMatchers.any(Task.class))).thenReturn(updatedTask);
         mockMvc.perform(put("/tasks/1").contentType(MediaType.APPLICATION_JSON).content(requestBody)).andExpect(status().isOk());
 
     }

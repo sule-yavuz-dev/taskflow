@@ -3,3 +3,4 @@
 target/
 out/
 src/main/resources/application.properties
+netstat_output.txt

@@ -9,7 +9,7 @@ public class TaskResponse {
     private int priority;
     private TaskStatus status;
 
-    public TaskResponse(Long id, String title, String description, int prioirty, TaskStatus status){
+    public TaskResponse(Long id, String title, String description, int priority, TaskStatus status){
         this.id= id;
         this.title = title;
         this.description = description;

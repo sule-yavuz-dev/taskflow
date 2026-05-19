@@ -73,11 +73,14 @@ public class TaskController {
     }
 
     @PutMapping("/tasks/{id}")
-    public void updateTask(@PathVariable Long id,@Valid @RequestBody TaskRequest request){
-        taskService.updateTask(id, request.getTitle(),request.getDescription());
-        taskService.updateTaskPriority(id,request.getPriority());
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id,@Valid @RequestBody TaskRequest request) {
+        Task updatedTask = new Task(request.getTitle(), request.getDescription(), request.getPriority());
+        Task savedTask = taskService.updateTask(id, updatedTask);
+        if(savedTask == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(toTaskResponse(savedTask));
     }
-
 
     private TaskResponse toTaskResponse(Task task){
         return new TaskResponse(
