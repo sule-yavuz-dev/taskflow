@@ -8,6 +8,6 @@ public interface TaskRepository extends JpaRepository<Task, Long>{
     List<Task> findByStatus(TaskStatus status);
     List<Task> findByPriority(int priority);
 
-    List<Task> findByTitleContainingOrDescriptionContaining(String title, String description);
+    List<Task> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String title, String description);
 
 }

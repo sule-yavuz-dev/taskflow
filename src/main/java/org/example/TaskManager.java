@@ -278,7 +278,7 @@ public class TaskManager implements TaskService {
 
     @Override
     public List<Task> searchTaskForApi(String keyword){
-        return taskRepository.findByTitleContainingOrDescriptionContaining(keyword,keyword);
+        return taskRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(keyword,keyword);
     }
 
     @Override

@@ -97,4 +97,25 @@ class TaskControllerTest {
     void searchTasksReturnsOk() throws Exception{
         mockMvc.perform(get("/tasks/search").param("keyword","gym")).andExpect(status().isOk());
     }
+
+    @Test
+    void getTaskByStatusReturnsOk() throws Exception{
+        mockMvc.perform(get("/tasks/status/PENDING")).andExpect(status().isOk());
+    }
+
+    @Test
+    void getTaskByPriorityReturnsOk() throws Exception{
+        mockMvc.perform(get("/tasks/priority/1")).andExpect(status().isOk());
+    }
+
+    @Test
+    void markTaskAsInProgressReturnsNoContent() throws Exception{
+        mockMvc.perform(patch("/tasks/1/in-progress")).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void markTaskAsCompletedReturnsNoContent() throws Exception{
+        mockMvc.perform(patch("/tasks/1/complete")).andExpect(status().isNoContent());
+    }
+
 }
