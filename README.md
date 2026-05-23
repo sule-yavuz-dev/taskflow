@@ -12,8 +12,12 @@ Swagger documentation, validation, exception handling, and automated testing.
 - Get task by ID
 - Update tasks
 - Delete tasks
-- Filter tasks by status 
+- Filter tasks by status
 - Filter tasks by priority
+- Search tasks by keyword
+- Pagination support
+- Task status update endpoints
+- Automated controller and service tests
 - PostgreSQL persistence
 - Swagger/OpenAPI documentation
 - Global exception handling
@@ -22,6 +26,7 @@ Swagger documentation, validation, exception handling, and automated testing.
 ## Technologies
 - Java 17
 - Spring Boot
+- Spring Data JPA
 - Hibernate
 - PostgreSQL
 - Maven
@@ -99,6 +104,13 @@ spring.jpa.show-sql=true
 ```text
 http://localhost:8081/swagger-ui/index.html
 ```
+
+---
+
+## Testing
+TaskFlow includes:
+- Unit tests with JUnit 5 and Mockito
+- Controller layer tests with MockMvc
 
 ---
 
