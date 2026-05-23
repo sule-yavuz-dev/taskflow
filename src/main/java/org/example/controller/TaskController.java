@@ -76,9 +76,6 @@ public class TaskController {
     public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id,@Valid @RequestBody TaskRequest request) {
         Task updatedTask = new Task(request.getTitle(), request.getDescription(), request.getPriority());
         Task savedTask = taskService.updateTask(id, updatedTask);
-        if(savedTask == null){
-            return ResponseEntity.notFound().build();
-        }
         return ResponseEntity.ok(toTaskResponse(savedTask));
     }
 
@@ -87,4 +84,17 @@ public class TaskController {
                 task.getId(),task.getTitle(),task.getDescription(),task.getPriority(),task.getStatus()
         );
     }
+
+    @PatchMapping("/tasks/{id}/complete")
+    public ResponseEntity<Void> markTaskAsCompleted(@PathVariable Long id){
+        taskService.markTaskAsCompleted(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/tasks/{id}/in-progress")
+    public ResponseEntity<Void> markTaskAsInProgress(@PathVariable Long id){
+        taskService.markTaskAsInProgress(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
